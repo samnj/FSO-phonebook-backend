@@ -1,5 +1,4 @@
 require('dotenv').config()
-const { response } = require('express')
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
@@ -46,7 +45,7 @@ app.get('/api/people/:id', (req, res, next) => {
 
 app.delete('/api/people/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then(person => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(error => next(error))
@@ -75,7 +74,7 @@ app.put('/api/people/:id', (req, res, next) => {
     number: req.body.number
   }
 
-  Person.findByIdAndUpdate(req.params.id, person, { 
+  Person.findByIdAndUpdate(req.params.id, person, {
     new: true,
     runValidators: true
   })
